@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+
+
+    <!-- Navigation section  -->
+
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+
+         <div class="navbar-header">
+              <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                   <span class="icon icon-bar"></span>
+                   <span class="icon icon-bar"></span>
+                   <span class="icon icon-bar"></span>
+              </button>
+              <a href="index.html" class="navbar-brand">FlatNews</a>
+         </div>
+         <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                   <li class="active"><a href="{% url 'blogs:post_list' %}">Home</a></li>
+                   <li><a href="about.html">About</a></li>
+                   <li><a href="contact.html">Contact</a></li>
+              </ul>
+         </div>
+
+ </div>
+</div>
+
+<!-- Home Section -->
+
+<section id="home" class="main-home parallax-section">
+    <div class="overlay"></div>
+    <div id="particles-js"></div>
+    <div class="container">
+         <div class="row">
+
+              <div class="col-md-12 col-sm-12">
+                   <h1>FlatNews</h1>
+                   <h4>O yę ko ti ma gbó🧏‍♂️</h4>
+                   <a href="{% url 'blogs:post_list' %}" class="smoothScroll btn btn-default">Discover More</a>
+              </div>
+
+         </div>
+    </div>
+</section>
+ 
+    <div id="content">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+
+    <!-- Footer Section -->
+
+<footer>
+    <div class="container">
+         <div class="row">
+
+              <div class="col-md-5 col-md-offset-1 col-sm-6">
+                   <h3>Neuron Studio</h3>
+                   <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+                   <div class="footer-copyright">
+                        <p>Copyright &copy; 2021</p>
+                   </div>
+              </div>
+
+              <div class="col-md-4 col-md-offset-1 col-sm-6">
+                   <h3>Get to us</h3>
+                   <p><i class="fa fa-phone"></i> +2349013407505</p>
+                   <p><i class="fa fa-save"></i> joeltolu9@gmail.com</p>
+              </div>
+
+              <div class="clearfix col-md-12 col-sm-12">
+                   <hr>
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                   <ul class="social-icon">
+                        <li><a href="#" class="fa fa-facebook"></a></li>
+                        <li><a href="#" class="fa fa-twitter"></a></li>
+                        <li><a href="#" class="fa fa-google-plus"></a></li>
+                        <li><a href="#" class="fa fa-dribbble"></a></li>
+                        <li><a href="#" class="fa fa-linkedin"></a></li>
+                   </ul>
+              </div>
+              
+         </div>
+    </div>
+</footer>
+
+<!-- Back top -->
+<a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+<!-- SCRIPTS -->
+
+<script src="static/js/jquery.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/particles.min.js"></script>
+<script src="static/js/app.js"></script>
+<script src="static/js/jquery.parallax.js"></script>
+<script src="static/js/smoothscroll.js"></script>
+<script src="static/js/custom.js"></script>
+
+</body>
+</html>
+
+</body>
+</html>

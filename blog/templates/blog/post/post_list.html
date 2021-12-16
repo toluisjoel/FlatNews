@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+
+<body>
+
+{% block title %} FlatNews{% endblock title %}
+{% block content %}
+
+<div class="preloader">
+     <div class="sk-spinner sk-spinner-wordpress">
+          <span class="sk-inner-circle"></span>
+     </div>
+</div>
+
+<!-- My Blog Section -->
+
+<section id="blog">
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-offset-1 col-md-10 col-sm-12">
+                    <div class="blog-post-thumb">
+                         <div class="blog-post-image">
+                              {% for post in posts %}
+                              <a href="single-post.html">
+                                   <img src="static/images/blog-image1.jpg" class="img-responsive" alt="Blog Image">
+                              </a>
+                         </div>
+
+                         <div class="blog-post-title">
+                              <h3><a href="single-post.html">{{ post.title.capitalize }}</a></h3>
+                         </div>
+
+                         <div class="blog-post-format">
+                              <span><a href="#"><img src="static/images/author-image1.jpg" class="img-responsive img-circle"> {{ post.author }}</a></span>
+                              <span><i class="fa fa-date"></i> {{ post.publish }}</span>
+                         </div>
+
+                         <div class="blog-post-des">
+                              <p>{{ post.body|truncatewords:30|linebreaks }}</p>
+                              <a href="single-post.html" class="btn btn-default">Continue Reading</a>
+                              <div class="space"></div>
+                              {% endfor %}
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>
+{% endblock %}
