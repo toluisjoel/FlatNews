@@ -597,17 +597,22 @@ footer .footer-copyright {
     transform: scale(1.1);
 }
 
-/* pagination */
+
+
+/*---------------------------------------
+   Pagination          
+-----------------------------------------*/
+
 .pagination { 
   margin:40px 0; 
   font-weight:bold;
-  padding-top: 60px;
+  border: 2px solid #292929;
+
 }
 
 .step-links{
-  border:1px solid #292929;
+  border-radius: 20px;
   padding: 20px;
-  border-radius: 10px;
 }
 
 /*---------------------------------------

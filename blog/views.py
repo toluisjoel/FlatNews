@@ -2,10 +2,11 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
 from django.shortcuts import render
-from pathlib import Path
 from .models import Post, Comment
+from .forms import EmailPostForm
 
-#views 
+
+# Template Views 
 
 class PostListView(ListView):
     queryset = Post.published.all()
@@ -31,9 +32,9 @@ def post_list(request):
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post,
     status='published',
-    publish__year = year,
-    publish__month = month,
-    publish__day = day,
+    published_date__year = year,
+    published_date__month = month,
+    published_date__day = day,
     )
     comments = Comment.objects.all()
     for comment in comments:
@@ -41,3 +42,17 @@ def post_detail(request, year, month, day, post):
 
     context = {'post': post, 'comment': comment}
     return render(request, 'blog/post/post_detail.html', context)
+
+
+# Forms views
+
+def post_share(request, post_id):
+    post = get_object_or_404(Post, id=post_id, status='published')
+    if post.method == 'POST':
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+            form_cleaned_data = form.cleaned_data
+    else:
+        return EmailPostForm()
+    context = {'post': post, 'form': form}
+    return render(request, 'blog/post/share.html', context)

@@ -17,7 +17,7 @@
 
                          <div class="blog-post-format">
                               <span><a href="#"><img src="static/images/author-image1.jpg" class="img-responsive img-circle"> {{ post.author }}</a></span>
-                              <span><i class="fa fa-date"></i> {{ post.publish }}</span>
+                              <span><i class="fa fa-date"></i> {{ post.published_date }}</span>
                               <span><a href="#"><i class="fa fa-comment-o"></i>{{ comment.count }} comments</a></span>
                          </div>
 
@@ -29,7 +29,7 @@
                               <div class="media">
                                    <div class="media-body">
                                         <h3 class="media-heading"></h3>
-                                        <span>{{ comment.publish}}</span>
+                                        <span>{{ comment.published_date }}</span>
                                         <p>{{ comment.text }}</p>
                                    </div>
                               </div>

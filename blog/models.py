@@ -13,11 +13,11 @@ class PublishedManager(models.Manager):
 class Post(models.Model):
     status_choices = (('draft', 'draft'), ('published', 'published'),)
     title = models.CharField(max_length=255)
-    body = models.TextField()
+    content = models.TextField()
     slug = models.SlugField(max_length=225, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
-    author_picture = models.ImageField(blank=True)
-    publish = models.DateTimeField(default=timezone.now)
+    author_picture = models.ImageField(upload_to='static/images', editable=True)
+    published_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=status_choices, default='draft')
@@ -25,10 +25,10 @@ class Post(models.Model):
     published = PublishedManager()
 
     def get_absolute_url(self):
-        return reverse('blog:post_detail', args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
+        return reverse('blog:post_detail', args=[self.published_date.year, self.published_date.month, self.published_date.day, self.slug])
 
     class Meta:
-        ordering = ('-publish',)
+        ordering = ('-published_date',)
 
     def __str__(self):
         return self.title
@@ -37,9 +37,9 @@ class Post(models.Model):
 class Comment(models.Model):
     # author_picture = models.ImageField(blank=True)
     text = models.TextField()
-    publish = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ('-publish',)
+        ordering = ('-published_date',)
