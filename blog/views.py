@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.shortcuts import render
 from .models import Post, Comment
 from .forms import EmailPostForm
+from django.core.mail import send_mail
 
 
 # Template Views 
@@ -48,11 +49,19 @@ def post_detail(request, year, month, day, post):
 
 def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
-    if post.method == 'POST':
+    mail_sent = False
+
+    if request.method == 'POST':
         form = EmailPostForm(request.POST)
         if form.is_valid():
-            form_cleaned_data = form.cleaned_data
+            user = form.cleaned_data
+            post_url = request.build_absolute_url(post.get_absolute_url())
+            subject = f"{user['name']} recommends you read  {post.title}"
+            message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
+            send_mail(subject, message, 'admin@myblog.com', [user['to']])
+            mail_sent = True
     else:
         return EmailPostForm()
-    context = {'post': post, 'form': form}
-    return render(request, 'blog/post/share.html', context)
+
+    context = {'post': post, 'form': form, 'mail_sent':mail_sent}
+    return render(request, 'blog/post/share_post.html', context)
