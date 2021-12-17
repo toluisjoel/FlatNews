@@ -1,8 +1,11 @@
-{% extends "main.html" %}
+{% extends "blog/main.html" %}
+{% block title %} FlatNews{% endblock title %}
+
+{% block main_header %} FlatNews{% endblock main_header %}
+{% block subheader %}O yę ko ti ma gbó🧏‍♂️{% endblock %}
 
 <body>
 
-{% block title %} FlatNews{% endblock title %}
 {% block content %}
 
 <div class="preloader">
@@ -21,13 +24,13 @@
                     <div class="blog-post-thumb">
                          <div class="blog-post-image">
                               {% for post in posts %}
-                              <a href="single-post.html">
+                              <a href="{{ post.get_absolute_url }}">
                                    <img src="static/images/blog-image1.jpg" class="img-responsive" alt="Blog Image">
                               </a>
                          </div>
 
                          <div class="blog-post-title">
-                              <h3><a href="single-post.html">{{ post.title.capitalize }}</a></h3>
+                              <h3><a href="{{ post.get_absolute_url }}">{{ post.title.capitalize }}</a></h3>
                          </div>
 
                          <div class="blog-post-format">
@@ -37,7 +40,7 @@
 
                          <div class="blog-post-des">
                               <p>{{ post.body|truncatewords:30|linebreaks }}</p>
-                              <a href="single-post.html" class="btn btn-default">Continue Reading</a>
+                              <a href="{{ post.get_absolute_url }}" class="btn btn-default">Continue Reading</a>
                               <div class="space"></div>
                               {% endfor %}
                          </div>
@@ -46,4 +49,9 @@
           </div>
      </div>
 </section>
+
+   <!-- Pagination Section -->
+
+   {% include "blog/pagination.html" with page=page_obj %}
+
 {% endblock %}

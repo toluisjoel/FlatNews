@@ -1,6 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
+from django.db import models
 
 # Create your models here.
 
@@ -15,7 +16,7 @@ class Post(models.Model):
     body = models.TextField()
     slug = models.SlugField(max_length=225, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
-    # author_picture = models.ImageField()
+    author_picture = models.ImageField(blank=True)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -23,8 +24,22 @@ class Post(models.Model):
     objects = models.Manager() 
     published = PublishedManager()
 
+    def get_absolute_url(self):
+        return reverse('blog:post_detail', args=[self.publish.year, self.publish.month, self.publish.day, self.slug])
+
     class Meta:
         ordering = ('-publish',)
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    # author_picture = models.ImageField(blank=True)
+    text = models.TextField()
+    publish = models.DateTimeField(default=timezone.now)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ('-publish',)
