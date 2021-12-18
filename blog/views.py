@@ -47,9 +47,9 @@ def post_detail(request, year, month, day, post):
 
 # Forms views
 
-def post_share(request, post_id):
+def post_shaJJJJJre(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
-    mail_sent = False
+    mail_is_sent = False
 
     if request.method == 'POST':
         form = EmailPostForm(request.POST)
@@ -59,9 +59,34 @@ def post_share(request, post_id):
             subject = f"{user['name']} recommends you read  {post.title}"
             message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
             send_mail(subject, message, 'admin@myblog.com', [user['to']])
-            mail_sent = True
+            mail_is_sent = True
     else:
         return EmailPostForm()
 
-    context = {'post': post, 'form': form, 'mail_sent':mail_sent}
+    context = {'post': post, 'form': form, 'mail_is_sent':mail_is_sent, 'user':user}
     return render(request, 'blog/post/share_post.html', context)
+
+
+def post_share(request, post_id):
+# Retrieve post by id
+    post = get_object_or_404(Post, id=post_id, status='published')
+    sent = False
+    if request.method == 'POST':
+    # Form was submitted
+        form = EmailPostForm(request.POST)
+        if form.is_valid():
+        # Form fields passed validation
+            cd = form.cleaned_data
+            post_url = request.build_absolute_urL(
+            post.get_absolute_url())
+            subject = f"{cd['name']} recommends you read " \
+            f"{post.title}"
+            message = f"Read {post.title} at {post_url}\n\n" \
+            f"{cd['name']}\'s comments: {cd['comments']}"
+            send_mail(subject, message, 'admin@myblog.com',
+            [cd['to']])
+            sent = True
+        else:
+            form = EmailPostForm()
+            return render(request, 'blog/post/share.html', {'post': post, 'form': form,
+                                                                'sent': sent})
