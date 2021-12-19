@@ -1,10 +1,12 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
+from django.http import HttpResponse
+from django.core.mail import send_mail
 from django.shortcuts import render
 from .models import Post, Comment
 from .forms import EmailPostForm
-from django.core.mail import send_mail
+from django.conf import settings
 
 
 # Template Views 
@@ -38,8 +40,8 @@ def post_detail(request, year, month, day, post):
     published_date__day = day,
     )
     comments = Comment.objects.all()
-    for comment in comments:
-        comment = comment
+    for clinton in comments:
+        comment = clinton
 
     context = {'post': post, 'comment': comment}
     return render(request, 'blog/post/post_detail.html', context)
@@ -47,7 +49,7 @@ def post_detail(request, year, month, day, post):
 
 # Forms views
 
-def post_shaJJJJJre(request, post_id):
+def post_share(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
     mail_is_sent = False
 
@@ -55,19 +57,19 @@ def post_shaJJJJJre(request, post_id):
         form = EmailPostForm(request.POST)
         if form.is_valid():
             user = form.cleaned_data
-            post_url = request.build_absolute_url(post.get_absolute_url())
+            post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = f"{user['name']} recommends you read  {post.title}"
             message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
-            send_mail(subject, message, 'admin@myblog.com', [user['to']])
+            send_mail(subject, message, 'joeltolu9@gmail.com', [user['to']], fail_silently=False)
             mail_is_sent = True
     else:
-        return EmailPostForm()
+        return HttpResponse('Helllo')
 
     context = {'post': post, 'form': form, 'mail_is_sent':mail_is_sent, 'user':user}
     return render(request, 'blog/post/share_post.html', context)
 
 
-def post_share(request, post_id):
+def post_shvvare(request, post_id):
 # Retrieve post by id
     post = get_object_or_404(Post, id=post_id, status='published')
     sent = False
