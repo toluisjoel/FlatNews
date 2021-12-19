@@ -49,7 +49,7 @@ def post_detail(request, year, month, day, post):
 
 # Forms views
 
-def post_share(request, post_id):
+def share_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
     mail_is_sent = False
 
@@ -60,35 +60,11 @@ def post_share(request, post_id):
             post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = f"{user['name']} recommends you read  {post.title}"
             message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
-            send_mail(subject, message, 'joeltolu9@gmail.com', [user['to']], fail_silently=False)
+            send_mail(subject, message, settings.EMAIL_HOST_USER, [user['to']], fail_silently=False)
             mail_is_sent = True
     else:
-        return HttpResponse('Helllo')
-
+        form = EmailPostForm()
+        user = EmailPostForm()
+        
     context = {'post': post, 'form': form, 'mail_is_sent':mail_is_sent, 'user':user}
-    return render(request, 'blog/post/share_post.html', context)
-
-
-def post_shvvare(request, post_id):
-# Retrieve post by id
-    post = get_object_or_404(Post, id=post_id, status='published')
-    sent = False
-    if request.method == 'POST':
-    # Form was submitted
-        form = EmailPostForm(request.POST)
-        if form.is_valid():
-        # Form fields passed validation
-            cd = form.cleaned_data
-            post_url = request.build_absolute_urL(
-            post.get_absolute_url())
-            subject = f"{cd['name']} recommends you read " \
-            f"{post.title}"
-            message = f"Read {post.title} at {post_url}\n\n" \
-            f"{cd['name']}\'s comments: {cd['comments']}"
-            send_mail(subject, message, 'admin@myblog.com',
-            [cd['to']])
-            sent = True
-        else:
-            form = EmailPostForm()
-            return render(request, 'blog/post/share.html', {'post': post, 'form': form,
-                                                                'sent': sent})
+    return render(request, 'blog/post/share.html', context)

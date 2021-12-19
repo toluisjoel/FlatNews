@@ -125,10 +125,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-EMAIL_HOST = 
-EMAIL_HOST_USER = 
-EMAIL_HOST_PASSWORD = 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'in-v3.mailjet.com'
+MAILJET_API_KEY = '1669f6f5dda526d28d520ea39de2bf07'
+MAILJET_API_SECRET = 'c7adc772ccf3e4b8339a33c949c499b8'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_TIMEOUT = 30
+DEFAULT_FROM_EMAIL = 'Tolu <joeltolu9@gmail.com>'
