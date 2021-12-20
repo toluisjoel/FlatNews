@@ -16,7 +16,6 @@ class Post(models.Model):
     content = models.TextField()
     slug = models.SlugField(max_length=225, unique_for_date='publish')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
-    # author_picture = models.ImageField(upload_to='static/images', editable=True)
     published_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -35,11 +34,16 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    # author_picture = models.ImageField(blank=True)
-    text = models.TextField()
-    published_date = models.DateTimeField(default=timezone.now)
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    name = models.CharField(max_length=80)
+    email = models.EmailField()
+    body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    active = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ('-published_date',)
+        ordering = ('created',)
+
+    def __str__(self):
+        return f'Comment by {self.name} on {self.post}'

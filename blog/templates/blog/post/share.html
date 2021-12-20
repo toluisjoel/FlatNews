@@ -3,7 +3,7 @@
   {% block content %}
     {% if mail_is_sent %}
         <h1>E-mail successfully sent</h1> <p>
-          "{{ post.title }}" was successfully sent to {{ user}}.
+          "{{ post.title }}" was successfully sent to {{ user.to }}.
     {% else %}
       <h1>Share "{{ post.title }}" by e-mail</h1>
       <form method="post">

@@ -1,12 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView
-from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.shortcuts import render
-from .models import Post, Comment
+from .models import Post
 from .forms import EmailPostForm
-from django.conf import settings
 
 
 # Template Views 
@@ -39,11 +37,8 @@ def post_detail(request, year, month, day, post):
     published_date__month = month,
     published_date__day = day,
     )
-    comments = Comment.objects.all()
-    for clinton in comments:
-        comment = clinton
 
-    context = {'post': post, 'comment': comment}
+    context = {'post': post}
     return render(request, 'blog/post/post_detail.html', context)
 
 
@@ -60,7 +55,7 @@ def share_post(request, post_id):
             post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = f"{user['name']} recommends you read  {post.title}"
             message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
-            send_mail(subject, message, settings.EMAIL_HOST_USER, [user['to']], fail_silently=False)
+            send_mail(subject, message, user['email'], [user['to']], fail_silently=False)
             mail_is_sent = True
     else:
         form = EmailPostForm()

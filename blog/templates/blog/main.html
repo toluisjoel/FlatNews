@@ -49,7 +49,7 @@
               <div class="col-md-12 col-sm-12">
                    <h1>{% block main_header %}{% endblock %}</h1>
                    <h4>{% block subheader %}{% endblock %}</h4>
-                   <a href="{% url 'blogs:post_list' %}" class="smoothScroll btn btn-default">Discover More</a>
+                   <a href="{% url 'blogs:post_list' %}" class="smoothScroll btn btn-default">{% block home_page_button %}{% endblock home_page_button %}</a>
               </div>
 
          </div>
