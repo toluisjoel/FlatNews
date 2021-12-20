@@ -18,7 +18,9 @@
                          <div class="blog-post-format">
                               <span><a href="#"><img src="static/images/author-image1.jpg" class="img-responsive img-circle"> {{ post.author }}</a></span>
                               <span><i class="fa fa-date"></i> {{ post.published_date }}</span>
-                              <span><a href="#"><i class="fa fa-comment-o"></i><!--{{ comment.count }} comments--></a></span>
+                              {% with comments.count as total_comments %}
+                              <span><a href="#"><i class="fa fa-comment-o"></i>{{ total_comments }} comment {{ total_comments | pluralize }}</a></span>
+                              {% endwith %}
                          </div>
 
                          <div class="blog-post-des">
@@ -29,25 +31,38 @@
 
                          <div class="blog-comment">
                               <h3>Comments</h3>
-                              <div class="media">
-                                   <div class="media-body">
-                                        <h3 class="media-heading"></h3>
-                                        <span><!--{{ comment.published_date }}--></span>
-                                        <p><!--{{ comment.content }}--></p>
+                                   <div class="media">
+                                        <div class="media-body">
+                                             <h3 class="media-heading"></h3>
+                                             {% for comment in comments %}
+                                             <span>comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}</span>
+                                             <p>{{ comment.body | linebreaks }}</p>
+                              {% empty %}
+                                   <p> There are no comments yet </p>
+                              {% endfor %}
                                    </div>
                               </div>
                          </div>
 
                          <div class="blog-comment-form">
-                              <h3>Leave a Comment</h3>
-                                   <form action="#" method="post">
-                           	 	 	 	<input type="text" class="form-control" placeholder="Name" name="name" required>
-                                        <input type="email" class="form-control" placeholder="Email" name="email" required>
-                                        <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message" message="message" required="required"></textarea>
-                                        <div class="col-md-3 col-sm-4">
-                                             <input name="submit" type="submit" class="form-control" id="submit" value="Post Your Comment">
-                                        </div>
-                                   </form>
+                              {% if new_comment %}
+                                   <h2>Yay your comment has been added.</h2>
+                              {% else %}
+                              <h2>Add a new comment</h2>
+                              <form action="" method="post">{% csrf_token %}
+                                   {{ comment_form.as_p }}
+                                   <p><input type="submit" value="Post Comment" /></p>
+                              </form>
+                                   <h3>Leave a Comment</h3>
+                                        <form action="#" method="post">
+                                                  <input type="text" class="form-control" placeholder="Name" name="name" required>
+                                             <input type="email" class="form-control" placeholder="Email" name="email" required>
+                                             <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message" message="message" required="required"></textarea>
+                                             <div class="col-md-3 col-sm-4">
+                                                  <input name="submit" type="submit" class="form-control" id="submit" value="Post Your Comment">
+                                             </div>
+                                        </form>
+                              {% endif %}
                          </div>
                     </div>
           </div>

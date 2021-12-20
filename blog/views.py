@@ -5,6 +5,8 @@ from django.core.mail import send_mail
 from django.shortcuts import render
 from .models import Post
 from .forms import EmailPostForm
+from .models import Post, Comment
+from .forms import EmailPostForm, CommentForm
 
 
 # Template Views 
@@ -38,7 +40,18 @@ def post_detail(request, year, month, day, post):
     published_date__day = day,
     )
 
-    context = {'post': post}
+    comments = post.comments.filter(active=True)
+    new_comment = None
+    if request.method == 'POST':
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save() 
+    else:
+        comment_form = CommentForm()
+
+    context = {'post': post,'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form}
     return render(request, 'blog/post/post_detail.html', context)
 
 

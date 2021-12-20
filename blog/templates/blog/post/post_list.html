@@ -26,7 +26,7 @@
                          <div class="blog-post-image">
                               {% for post in posts %}
                               <a href="{{ post.get_absolute_url }}">
-                                   <img src="static/images/blog-image1.jpg" class="img-responsive" alt="Blog Image">
+                                   <img src="{ static 'images/blog-image1.jpg' %}" class="img-responsive" alt="Blog Image">
                               </a>
                          </div>
 
@@ -35,7 +35,7 @@
                          </div>
 
                          <div class="blog-post-format">
-                              <span><a href="#"><img src="images/{{post.author_picture}}" class="img-responsive img-circle"> {{ post.author }}</a></span>
+                              <span><a href="#"><img src="static/images/author-image3.jpg" class="img-responsive img-circle"> {{ post.author }}</a></span>
                               <span><i class="fa fa-date"></i> {{ post.published_date }}</span>
                          </div>
 

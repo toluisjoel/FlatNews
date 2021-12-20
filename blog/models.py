@@ -14,7 +14,7 @@ class Post(models.Model):
     status_choices = (('draft', 'draft'), ('published', 'published'),)
     title = models.CharField(max_length=255)
     content = models.TextField()
-    slug = models.SlugField(max_length=225, unique_for_date='publish')
+    slug = models.SlugField(max_length=225, unique_for_date='published_date')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
     published_date = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
