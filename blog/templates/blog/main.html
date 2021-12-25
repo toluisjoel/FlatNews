@@ -50,7 +50,7 @@
               <div class="col-md-12 col-sm-12">
                    <h1>{% block main_header %}{% endblock %}</h1>
                    <h4>{% block subheader %}{% endblock %}</h4>
-                   <h5> <i>This blog has <b>{% total_posts %} total</b> posts</i></h5>
+                   <h5> <i>This blog has <b>{% total_posts_number %} total</b> posts</i></h5>
                    <a href="{{ post.get_absolute_url }}" class="smoothScroll btn btn-default">{% block home_page_button %}{% endblock home_page_button %}</a>
               </div>
 
