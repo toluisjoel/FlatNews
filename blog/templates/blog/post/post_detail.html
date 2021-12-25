@@ -1,7 +1,8 @@
 {% extends "blog/main.html" %}
+{% load static %}
 {% block title %} {{ post.title.capitalize }}{% endblock title %}
 
-{% block main_header %} {{ post.title.capitalize }} {% endblock main_header %}
+{% block home %}<!---->{% endblock %}
 
 {% block content %}
 <body>
@@ -13,13 +14,13 @@
                <div class="col-md-offset-1 col-md-10 col-sm-12">
                     <div class="blog-single-post-thumb">
                          
-                         <div class="blog-post-title"><h2>{{ post.title.capitalize }}</h2></div>
+                         <div class="blog-post-title" style="text-align: center; padding-bottom: 30px;"><h2>{{ post.title.capitalize }}</h2></div>
 
                          <div class="blog-post-format">
-                              <span><a href="#"><img src="static/images/author-image1.jpg" class="img-responsive img-circle"> {{ post.author }}</a></span>
+                              <span><a href="#"><img src="{% static 'images/author-image1.jpg' %}" class="img-responsive img-circle"> {{ post.author }}</a></span>
                               <span><i class="fa fa-date"></i> {{ post.published_date }}</span>
                               {% with comments.count as total_comments %}
-                              <span><a href="#"><i class="fa fa-comment-o"></i>{{ total_comments }} comment {{ total_comments | pluralize }}</a></span>
+                              <span><a href="#"><i class="fa fa-comment-o"></i> {{ total_comments }} comment{{ total_comments | pluralize }}</a></span>
                               {% endwith %}
                          </div>
 
@@ -29,17 +30,26 @@
                                    <a href="{% url 'blog:share_post' post.id %}">Share this post</a>
                               </p>
 
+
+                              <h2>Similar posts</h2>
+                                   {% for post in similar_posts %}
+                                        <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
+                                   {% empty %}
+                                        There are no similar posts yet. 
+                                   {% endfor %}
+
+<!-- comments -->
                          <div class="blog-comment">
                               <h3>Comments</h3>
-                                   <div class="media">
-                                        <div class="media-body">
-                                             <h3 class="media-heading"></h3>
-                                             {% for comment in comments %}
-                                             <span>comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}</span>
-                                             <p>{{ comment.body | linebreaks }}</p>
-                              {% empty %}
-                                   <p> There are no comments yet </p>
-                              {% endfor %}
+                              <div class="media">
+                                   <div class="media-body">
+                                        <h3 class="media-heading"></h3>
+                                        {% for comment in comments %}
+                                        <span>comment {{ forloop.counter }} by {{ comment.name }} {{ comment.created }}</span>
+                                        <p>{{ comment.body | linebreaks }}</p>
+                                        {% empty %}
+                                             <p> There are no comments yet </p>
+                                        {% endfor %}
                                    </div>
                               </div>
                          </div>
@@ -48,24 +58,15 @@
                               {% if new_comment %}
                                    <h2>Yay your comment has been added.</h2>
                               {% else %}
-                              <h2>Add a new comment</h2>
+                              <h3>Leave a Comment</h3>
                               <form action="" method="post">{% csrf_token %}
                                    {{ comment_form.as_p }}
                                    <p><input type="submit" value="Post Comment" /></p>
                               </form>
-                                   <h3>Leave a Comment</h3>
-                                        <form action="#" method="post">
-                                                  <input type="text" class="form-control" placeholder="Name" name="name" required>
-                                             <input type="email" class="form-control" placeholder="Email" name="email" required>
-                                             <textarea name="message" rows="5" class="form-control" id="message" placeholder="Message" message="message" required="required"></textarea>
-                                             <div class="col-md-3 col-sm-4">
-                                                  <input name="submit" type="submit" class="form-control" id="submit" value="Post Your Comment">
-                                             </div>
-                                        </form>
                               {% endif %}
                          </div>
+                         </div>
                     </div>
-          </div>
-     </div>
+               </div>
 </section>
 {% endblock content %}

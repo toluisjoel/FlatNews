@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from taggit.managers import TaggableManager
 from django.utils import timezone
 from django.urls import reverse
 from django.db import models
@@ -11,6 +12,7 @@ class PublishedManager(models.Manager):
 
 
 class Post(models.Model):
+    tags = TaggableManager()
     status_choices = (('draft', 'draft'), ('published', 'published'),)
     title = models.CharField(max_length=255)
     content = models.TextField()

@@ -503,6 +503,34 @@ a:hover, a:active, a:focus {
 }
 
 
+/*---------------------------------------
+   Forms              
+-----------------------------------------*/
+
+label { 
+  float:left;
+  clear:both;
+  color:#333;
+  margin-bottom:4px; 
+}
+input, textarea { 
+  clear:both;
+  float:left;
+  margin:0 0 10px;
+  background:#ededed;
+  border:0;
+  padding:6px 10px;
+  font-size:12px;
+}
+input[type=submit] {
+  margin-top: 10px;
+  font-weight:bold;
+  background:#00abff;
+  color:#fff;
+  padding:10px 20px;
+  font-size:14px;
+  text-transform:uppercase; 
+}
 
 /*---------------------------------------
    Footer section              

@@ -1,12 +1,8 @@
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import get_object_or_404
+from .forms import EmailPostForm, CommentForm
 from django.views.generic import ListView
-from django.core.mail import send_mail
 from django.shortcuts import render
 from .models import Post
-from .forms import EmailPostForm
-from .models import Post, Comment
-from .forms import EmailPostForm, CommentForm
 
 
 # Template Views 
@@ -18,9 +14,19 @@ class PostListView(ListView):
     template_name = 'blog/post/post_list.html'
 
 
-def post_list(request):
+def post_list(request, tag_slug=None):
     object_list = Post.published.all()
-    paginator = Paginator(object_list, 3)
+    tag = None
+    
+    #  tags
+    from taggit.models import Tag
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
+    
+    #  paginator
+    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+    paginator = Paginator(object_list, 5)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
@@ -28,7 +34,8 @@ def post_list(request):
         posts = paginator.page(1)
     except EmptyPage:
         posts = paginator.page(paginator.num_pages)
-    context = {'posts':posts, 'page':page}
+
+    context = {'posts':posts, 'page':page, 'tag': tag }
     return render(request, 'blog/post/post_list.html', context)
 
 
@@ -40,23 +47,33 @@ def post_detail(request, year, month, day, post):
     published_date__day = day,
     )
 
+    #  comments
     comments = post.comments.filter(active=True)
     new_comment = None
+
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.post = post
-            new_comment.save() 
+            new_comment.save()
     else:
         comment_form = CommentForm()
 
-    context = {'post': post,'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form}
+    #  list of similar posts
+    from django.db.models import Count
+    post_tags_ids = post.tags.values_list('id', flat=True)
+    similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
+    similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-published_date')[:4]
+
+    context = {'post': post,'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form, 'similar_posts': similar_posts}
     return render(request, 'blog/post/post_detail.html', context)
 
 
 # Forms views
 
+from django.core.mail import send_mail
+from .forms import EmailPostForm
 def share_post(request, post_id):
     post = get_object_or_404(Post, id=post_id, status='published')
     mail_is_sent = False

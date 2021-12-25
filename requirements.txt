@@ -1,0 +1,3 @@
+laptop/Desktop 😃
+django==3.2.1
+django_taggit==2.0.0
