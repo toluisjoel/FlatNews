@@ -1,6 +1,13 @@
-{% extends "blog/forms.html" %}
-<body>
-  {% block form %}
+{% extends "blog/main.html" %}
+{% load static %}
+{% block title %} {{ post.title.capitalize }}{% endblock title %}
+
+{% block home %}<!---->{% endblock %}
+{% block footer %}<!---->{% endblock %}
+
+{% block content %}
+
+  <body>  
     {% if mail_is_sent %}
         <h1>E-mail successfully sent</h1> <p>
           "{{ post.title }}" was successfully sent to {{ user.to }}.
@@ -11,5 +18,6 @@
         <input type="submit" value="Send e-mail">
       </form>
     {% endif %}
-    {% endblock %}
-</body>
+  </body>
+  
+  {% endblock %}

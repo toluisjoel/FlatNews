@@ -30,14 +30,6 @@
                                    <a href="{% url 'blog:share_post' post.id %}">Share this post</a>
                               </p>
 
-
-                              <h2>Similar posts</h2>
-                                   {% for post in similar_posts %}
-                                        <p><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></p>
-                                   {% empty %}
-                                        There are no similar posts yet. 
-                                   {% endfor %}
-
 <!-- comments -->
                          <div class="blog-comment">
                               <h3>Comments</h3>
@@ -68,5 +60,9 @@
                          </div>
                     </div>
                </div>
+                                        
+
+               <h2 style="text-align: center; padding-bottom: 30px;">Similar posts</h2>
+               {% include "blog/postListView.html" with posts=similar_posts %}
 </section>
 {% endblock content %}

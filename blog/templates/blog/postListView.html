@@ -1,0 +1,63 @@
+{% load static %}
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
+     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+     <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
+     <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
+     <title>{% block title %}{% endblock title %}</title>
+ </head>
+
+<section id="blog">
+     <div class="container">
+          <div class="row">
+
+               <div class="col-md-offset-1 col-md-10 col-sm-12">
+                    <div class="blog-post-thumb">
+                         <div class="blog-post-image">
+                              {% if tag %}
+                                   <h2>Posts tag with "{{ tag.name }}"</h2>
+                                   <p class="tags"> Tags:
+                                        {% for tag in post.tags.all %}
+                                        <a href="{% url 'blog:post_list_by_tag' tag.slug %}">
+                                        {{ tag.name }} </a>
+                                        {% if not forloop.last %}, {% endif %} {% endfor %}
+                                        </p>
+                              {% endif %}
+                              {% for post in posts %}
+                              <a href="{{ post.get_absolute_url }}">
+                                   <img src="{% static 'images/blog-image1.jpg' %}" class="img-responsive" alt="Blog Image">
+                              </a>
+                         </div>
+
+                         <div class="blog-post-title">
+                              <h3><a href="{{ post.get_absolute_url }}">{{ post.title.capitalize }}</a></h3>
+                              <p class="tags" style="color: #bfba55">Tags:
+                                   {% for tag in post.tags.all %}
+                                   <a href="{% url 'blog:post_list_by_tag' tag.slug %}">{{ tag.name }} </a>
+                                   {% if not forloop.last %}, {% endif %}
+                                   {% endfor %}
+                              </p>
+                         </div>
+
+                         <div class="blog-post-format">
+                              <span><a href="#"><img src="{% static 'images/author-image1.jpg' %}" class="img-responsive img-circle"> {{ post.author }}</a></span>
+                              <span><i class="fa fa-date"></i> {{ post.published_date }}</span>
+                         </div>
+
+                         <div class="blog-post-des">
+                              <p>{{ post.content|truncatewords:30|linebreaks }}</p>
+                              <a href="{{ post.get_absolute_url }}" class="btn btn-default">Continue Reading</a>
+                              <div class="space"></div>
+                              {% endfor %}
+                         </div>
+                    </div>
+               </div>
+          </div>
+     </div>
+</section>
+
+{% include "blog/pagination.html" with page=posts %}

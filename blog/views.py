@@ -93,3 +93,9 @@ def share_post(request, post_id):
         
     context = {'post': post, 'form': form, 'mail_is_sent':mail_is_sent, 'user':user}
     return render(request, 'blog/post/share.html', context)
+
+def show_latest_posts(request):
+    count = 5
+    latest_posts = Post.published.order_by('-published_date')[ :count]
+    context = {'latest_posts': latest_posts}
+    return render(request, 'blog/post/latest_posts.html', context)

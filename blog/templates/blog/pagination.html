@@ -8,6 +8,7 @@
         </span>
         {% if page.has_next %}
         <a href="?page={{page.next_page_number}}">Next</a>
+        {% block home %} <!---->{% endblock %}
         {% endif %}      
     </span>
 </div>
