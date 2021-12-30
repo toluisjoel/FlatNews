@@ -5,6 +5,7 @@ from blog.models import Post
 
 
 class LatestPostFeed(Feed):
+    title = 'FlatNews'
     link = reverse_lazy('blog:post_list')
     description = 'My latest posts'
     
