@@ -1,1 +1,25 @@
+{% block navbar %}
+<div class="navbar navbar-default navbar-static-top" role="navigation">
+    <div class="container">
+
+         <div class="navbar-header">
+              <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                   <span class="icon icon-bar"></span>
+                   <span class="icon icon-bar"></span>
+                   <span class="icon icon-bar"></span>
+              </button>
+              <a href="{% url 'blogs:post_list' %}" class="navbar-brand">FlatNews</a>
+         </div>
+         <div class="collapse navbar-collapse">
+              <ul class="nav navbar-nav navbar-right">
+                   <li class="active"><a href="{% url 'blogs:post_list' %}">Home</a></li>
+                   <li><a href="{%  url 'blogs:latest_posts' %}">Latest Post</a></li>
+                   <li><a href="#">Contact</a></li>
+              </ul>
+         </div>
+
+ </div>
+</div>
+{% endblock %}
+
 {% include "blog/postListView.html" with posts=latest_posts %}

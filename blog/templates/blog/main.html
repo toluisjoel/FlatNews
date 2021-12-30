@@ -49,9 +49,9 @@
 
               <div class="col-md-12 col-sm-12">
                    <h1>{% block main_header %}FlatNews{% endblock %}</h1>
-                   <h4>{% block subheader %}code Actually wa ti ma gbó(WTMG)🧏‍♂️{% endblock %}</h4>
+                   <h4>{% block subheader %}Actually wa ti ma gbó(WTMG)🧏‍♂️{% endblock %}</h4>
                    <h5> <i>This blog has <b>{% total_posts_number %} posts</b></i></h5>
-                   <a href="{{ post.get_absolute_url }}" class="smoothScroll btn btn-default">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
+                   <a href="{% url 'blogs:latest_posts' %}" class="smoothScroll btn btn-default">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
               </div>
 
          </div>

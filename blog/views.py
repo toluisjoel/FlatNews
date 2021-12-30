@@ -26,7 +26,7 @@ def post_list(request, tag_slug=None):
     
     #  paginator
     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-    paginator = Paginator(object_list, 5)
+    paginator = Paginator(object_list, 10)
     page = request.GET.get('page')
     try:
         posts = paginator.page(page)
