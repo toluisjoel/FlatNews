@@ -137,8 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST = 'in-v3.mailjet.com'
-MAILJET_API_KEY = os.environ.get('MAILJET_API_KEY')
-MAILJET_API_SECRET = os.environ.get('MAILJET_API_SECRET')
+MAILJET_API_KEY = secrets.get('MAILJET_API_KEY')
+MAILJET_API_SECRET = secrets.get('MAILJET_API_SECRET')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
