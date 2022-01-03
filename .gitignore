@@ -90,6 +90,7 @@ g.py
 .env
 .venv
 env/
+env.py
 venv/
 ENV/
 env.bak/

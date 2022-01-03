@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 import os
+from .env import secrets
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -21,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wkgt9h9hn_qh0m0t%ren5o4$&8vn+e1n=0(ml(+$@8e4@!udm+'
+
+SECRET_KEY = secrets.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -82,8 +84,10 @@ WSGI_APPLICATION = 'FlatNews.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'FlatNews',
+        'USER': secrets.get('DATABASE_USER'),
+        'PASSWORD': secrets.get('DATABASE_PASSWORD'),
     }
 }
 

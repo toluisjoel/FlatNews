@@ -26,12 +26,12 @@
                    <span class="icon icon-bar"></span>
                    <span class="icon icon-bar"></span>
               </button>
-              <a href="{% url 'blogs:post_list' %}" class="navbar-brand">FlatNews</a>
+              <a href="{% url 'blog:post_list' %}" class="navbar-brand">FlatNews</a>
          </div>
          <div class="collapse navbar-collapse">
               <ul class="nav navbar-nav navbar-right">
-                   <li class="active"><a href="{% url 'blogs:post_list' %}">Home</a></li>
-                   <li><a href="{%  url 'blogs:latest_posts' %}">Latest Post</a></li>
+                   <li class="active"><a href="{% url 'blog:post_list' %}">Home</a></li>
+                   <li><a href="{%  url 'blog:latest_posts' %}">Trending Posts</a></li>
                    <li><a href="#">Contact</a></li>
               </ul>
          </div>
@@ -51,7 +51,8 @@
                    <h1>{% block main_header %}FlatNews{% endblock %}</h1>
                    <h4>{% block subheader %}Actually wa ti ma gbó(WTMG)🧏‍♂️{% endblock %}</h4>
                    <h5> <i>This blog has <b>{% total_posts_number %} posts</b></i></h5>
-                   <a href="{% url 'blogs:latest_posts' %}" class="smoothScroll btn btn-default">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
+                   <p><a href="{% url 'blog:post_feed' %}">Subscribe to my RSS feed 🙏</a></p>
+                   <a href="{% url 'blog:latest_posts' %}" class="smoothScroll btn btn-default">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
               </div>
 
          </div>
