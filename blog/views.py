@@ -102,7 +102,7 @@ def show_latest_posts(request):
     return render(request, 'blog/post/latest_posts.html', context)
 
 
-from django.contrib.postgres.search import SearchVector
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 def post_search(request):
     form = SearchForm()
     query = None
@@ -112,7 +112,9 @@ def post_search(request):
         form = SearchForm(request.GET)
         if form.is_valid():
             query = form.cleaned_data['query']
-            results = Post.published.annotate(search=SearchVector('title', 'content'),).filter(search=query)
+            search_vector = SearchVector('title', 'content')
+            search_query = SearchQuery(query)
+            results = Post.published.annotate(search=search_vector, rank=SearchRank(search_vector, search_query)).filter(search=search_query).order_by('-rank')
 
     context = {'form': form, 'query': query, 'results': results}
     return render(request, 'blog/post/search.html', context)
