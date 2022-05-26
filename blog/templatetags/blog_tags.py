@@ -1,5 +1,6 @@
 from django import template
 from ..models import Post
+import django.utils.html as django_html
 
 register = template.Library()
 

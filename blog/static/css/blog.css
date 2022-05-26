@@ -573,15 +573,14 @@ footer .footer-copyright {
 -----------------------------------------*/
 
 .pagination { 
-  margin:40px 0; 
-  font-weight:bold;
-  border: 2px solid #292929;
-
-}
-
-.step-links{
-  border-radius: 20px;
-  padding: 20px;
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto;
+  width: 100%;
+  left: 50%;
+  right: 50%;
+  text-align: center;
 }
 
 /*---------------------------------------
