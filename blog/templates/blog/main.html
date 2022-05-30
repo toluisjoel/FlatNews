@@ -8,60 +8,29 @@
     <meta description="This a blog that gives you valuable contents">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{% static 'css/blog.css' %}" rel="stylesheet">
-    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet">
-    <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet">
-    <link href="{% static 'https://fonts.googleapis.com/css?family=Lora|Merriweather:300,400' %}" rel="stylesheet">
     <title>{% block title %}{% endblock title %}</title>
 </head>
 <body>
 
 
-    <!-- Navigation section  -->
 {% block navbar %}
-<div class="navbar navbar-default navbar-static-top" role="navigation">
-    <div class="container">
-
-         <div class="navbar-header">
-              <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                   <span class="icon icon-bar"></span>
-                   <span class="icon icon-bar"></span>
-                   <span class="icon icon-bar"></span>
-              </button>
-              <a href="{% url 'blog:post_list' %}" class="navbar-brand">FlatNews</a>
-         </div>
-         <div class="collapse navbar-collapse">
-              <ul class="nav navbar-nav navbar-right">
-                   <li class="active"><a href="{% url 'blog:post_list' %}">Home</a></li>
-                   <li><a href="{%  url 'blog:latest_posts' %}">Latest Posts</a></li>
-                   <li><a href="#">Contact</a></li>
-              </ul>
-         </div>
-
- </div>
-</div>
+<a href="{% url 'blog:post_list' %}">FlatNews</a>
+<ul>
+     <li class="active"><a href="{% url 'blog:post_list' %}">Home</a></li>
+     <li><a href="{%  url 'blog:latest_posts' %}">Latest Posts</a></li>
+     <li><a href="#">Contact</a></li>
+</ul>
 {% endblock %}
-<!-- Home Section -->
+
+
 {% block home %}
-<section id="home" class="main-home parallax-section">
-    <div class="overlay"></div>
-    <div id="particles-js"></div>
-    <div class="container">
-         <div class="row">
-
-              <div class="col-md-12 col-sm-12">
-                   <h1>{% block main_header %}FlatNews{% endblock %}</h1>
-                   <h4>{% block subheader %}Actually wa ti ma gbó(WTMG)🧏‍♂️{% endblock %}</h4>
-                   <h5> <i>This blog has <b>{% total_posts_number %} posts</b></i></h5>
-                   <p><a href="{% url 'blog:post_feed' %}">Subscribe to my RSS feed 🙏</a></p>
-                   <a href="{% url 'blog:latest_posts' %}" class="smoothScroll btn btn-default">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
-              </div>
-
-         </div>
-    </div>
+<section id="home">
+<h1>{% block main_header %}FlatNews{% endblock %}</h1>
+<h4>{% block subheader %}Actually wa ti ma gbó(WTMG)🧏‍♂️{% endblock %}</h4>
+<h5> <i>This blog has <b>{% total_posts_number %} posts</b></i></h5>
+<p><a href="{% url 'blog:post_feed' %}">Subscribe to my RSS feed 🙏</a></p>
+<a href="{% url 'blog:latest_posts' %}">{% block home_page_button %} Discover More {% endblock home_page_button %}</a>
 </section>
- 
-
 {% endblock %}
  
 
@@ -71,62 +40,13 @@
     </div>
 
 
-    <!-- Footer Section -->
 {% block footer %}
 <footer>
-    <div class="container">
-         <div class="row">
-
-              <div class="col-md-5 col-md-offset-1 col-sm-6">
-                   <h3>FlatNews</h3>
-                   <p>We will  always be at your service to provide you with entertaining, factual and informative news ☺️</p>
-                   <div class="footer-copyright">
-                        <p>Copyright &copy; 2021</p>
-                   </div>
-              </div>
-
-              <div class="col-md-4 col-md-offset-1 col-sm-6">
-                   <h3>Get to us</h3>
-                   <p><i class="fa fa-phone"></i> +2349013407505</p>
-                   <p><i class="fa fa-save"></i> joeltolu9@gmail.com</p>
-              </div>
-
-              <div class="clearfix col-md-12 col-sm-12">
-                   <hr>
-              </div>
-
-              <div class="col-md-12 col-sm-12">
-                   <ul class="social-icon">
-                        <li><a href="#" class="fa fa-facebook"></a></li>
-                        <li><a href="https://twitter.com/x_toelu" class="fa fa-twitter"></a></li>
-                        <li><a href="https://joeltolu9@gmail.com" class="fa fa-google-plus"></a></li>
-                        <li><a href="https://github.com/x-toelu" class="fa fa-dribbble"></a></li>
-                        <li><a href="https://linkedin.com/in/tolujoel" class="fa fa-linkedin"></a></li>
-                   </ul>
-              </div>
-              
-         </div>
-    </div>
+<h3>FlatNews</h3>
+<p>We will  always be at your service to provide you with entertaining, factual and informative news ☺️</p>
+<p>Copyright &copy; 2021</p>
 </footer>
 {% endblock %}
-
-
-<!-- Back top -->
-<a href="#back-top" class="go-top"><i class="fa fa-angle-up"></i></a>
-
-
-<!-- SCRIPTS -->
-
-<script src="{% static 'js/jquery.js' %}"></script>
-<script src="{% static 'js/bootstrap.min.js' %}"></script>
-<script src="{% static 'js/particles.min.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
-<script src="{% static 'js/jquery.parallax.js' %}"></script>
-<script src="{% static 'js/smoothscroll.js' %}"></script>
-<script src="{% static 'js/custom.js' %}"></script>
-
-</body>
-</html>
 
 </body>
 </html>
