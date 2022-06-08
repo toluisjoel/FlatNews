@@ -1,4 +1,3 @@
-laptop/Desktop 😃
-django==3.2.7
-django_taggit==2.0.0
-psycopg2-binary==2.9.2
+django
+django_taggit
+psycopg2-binary
