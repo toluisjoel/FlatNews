@@ -1,28 +1,134 @@
 *{
   margin: 0;
-}
-body{
-  background: url('../images/home-bg.jpg') no-repeat;
-  background-size:contain;
+  font-size: 100%;
+  box-sizing:border-box;
+  font-family: Helvetica, sans-serif;
 }
 
-#blog {
-  padding-top: 1000px;
+nav ul {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding-top: 40px;
 }
-.blog_post_title{
-  padding-right: 100000px;
+
+nav li{
+  display: inline;
+  list-style-type: none;
+  text-transform: uppercase;
 }
-.author_image img{
+nav li a{
+  text-decoration: none;
+  color: purple; 
+}
+
+nav a:hover{border-bottom: 1px solid;}
+
+article {
+  padding: 40px 0;
+}
+
+footer a:link{
+  width: 100%;
+  color:black;
+  text-decoration: none;
+  padding:5px;
+}
+
+footer {
+  text-align: center;
+  padding-top:20px;
+}
+
+.icons{font-size: 34px;}
+
+.icons i{
+  text-align: center;
+  padding: 20px;
+}
+
+/* ----------------------------------------------------------------
+                            POST LIST
+---------------------------------------------------------------- */
+
+#blog-section {
+  padding-top: 50px;
+}
+
+.post-thumbnail {
+  margin: auto;
+  display: block;
+  width: 90%;
+}
+
+.post-details{
+  padding: 30px 0;
+  max-width: 90%;
+  text-align: left;
+  margin: auto;
+}
+
+.post-details h1{
+  font-size: 25px;
+  padding-bottom: 20px;
+}
+
+.post-details a{
+  text-decoration: none;
+  color: black;
+}
+
+.post-details h1 a{
+  color: purple;
+}
+
+ .author-info {
+  display:block;
+  color: gray;
+  padding-top: 20px;
+  margin: auto;
+  width: 90%;
+}
+
+.author-image {
+  display: inline-block;
+  width: 30px;
   border-radius: 50%;
-  width: 5%;
-}
+  margin-right: 12px;
+} 
 
-/*Mobile Responsive */
-@media screen and (max-width: 900px) {
-  .post_thumbnail img{
-    width: 100%;
+article input[type=button] {
+  display: block;
+  margin-top: 30px;
+  padding: 20px;
+  margin: auto;
+  border-radius: 8px;
+  width: 90%;
+  border:1.5px solid purple;
+} 
+
+@media only screen and (min-width: 1024px) {
+  .post-thumbnail {
+    margin: auto;
+    display: block;
+    width: auto;
   }
-  #blog{
-    padding-top: 100px;
+
+  .post-details{
+    width: 1200px;
+  }
+
+  .post-details h1{font-size: 35px;}
+
+  nav ul {
+    gap: 50px;
+    justify-content: center;
+  }
+
+  article input[type=button] {
+    width: 1200px;
+  }
+
+  .author-info {
+    width: 1200px;
   }
 }

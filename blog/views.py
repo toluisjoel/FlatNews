@@ -16,29 +16,29 @@ class PostListView(ListView):
     template_name = 'blog/post/post_list.html'
 
 
-def post_list(request, tag_slug=None):
-    object_list = Post.published.all()
-    tag = None
+# def post_list(request, tag_slug=None):
+#     object_list = Post.published.all()
+#     tag = None
 
-    #  tags
-    from taggit.models import Tag
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
-        object_list = object_list.filter(tags__in=[tag])
+#     #  tags
+#     from taggit.models import Tag
+#     if tag_slug:
+#         tag = get_object_or_404(Tag, slug=tag_slug)
+#         object_list = object_list.filter(tags__in=[tag])
 
-    #  paginator
-    from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-    paginator = Paginator(object_list, 10)
-    page = request.GET.get('page')
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+#     #  paginator
+#     from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+#     paginator = Paginator(object_list, 10)
+#     page = request.GET.get('page')
+#     try:
+#         posts = paginator.page(page)
+#     except PageNotAnInteger:
+#         posts = paginator.page(1)
+#     except EmptyPage:
+#         posts = paginator.page(paginator.num_pages)
 
-    context = {'posts': posts, 'page': page, 'tag': tag}
-    return render(request, 'blog/post/post_list.html', context)
+#     context = {'posts': posts, 'page': page, 'tag': tag}
+#     return render(request, 'blog/post/post_list.html', context)
 
 
 def post_detail(request, year, month, day, post):

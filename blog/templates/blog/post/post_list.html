@@ -1,0 +1,27 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block title %}FLatNews HomePage{% endblock %}
+
+{% block content %}
+
+<section id="blog-section">
+    {% for post in posts %}
+        <article>
+            <img src="{% static 'images/blog-image1.jpg' %}" class="post-thumbnail" alt="post thumbnail">
+            <div class="author-info">
+                <img src="{% static 'images/author-image1.jpg' %}" alt="" class="author-image">
+                <span>by {{post.author}}</span>
+                <pre style="display: inline">  </pre>
+                <span>{{post.published_date}}</span>
+            </div>
+            <div class="post-details">
+                <h1><a href="{{post.get_absolute_url}}">{{post.title}}</a></h1>
+                <p><a href="#">{{post.content|truncatewords:30}}</a></p>
+            </div>
+            <input type="button" value="Read More...">
+        </article>
+    {% endfor %}
+</section>
+
+{% endblock %}}
