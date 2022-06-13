@@ -15,6 +15,7 @@ class Post(models.Model):
     tags = TaggableManager()
     status_choices = (('draft', 'draft'), ('published', 'published'),)
     title = models.CharField(max_length=255)
+    thumbnail = models.ImageField(upload_to='media/post_thumbnail/%Y/%M/%d')
     content = models.TextField()
     slug = models.SlugField(max_length=225, unique_for_date='published_date')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
