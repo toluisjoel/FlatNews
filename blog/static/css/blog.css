@@ -24,16 +24,14 @@ nav li{
   list-style-type: none;
   text-transform: uppercase;
 }
-nav li a{
+nav a{
   color: purple; 
   text-decoration: none;
 }
 
 nav a:hover{border-bottom: 1px solid;}
 
-article {
-  padding: 38px 0 40px 0;
-}
+article {padding: 38px 0 40px 0;}
 
 footer {
   padding-top:20px;
@@ -53,34 +51,52 @@ footer .icons a{
   padding-right: 40px;
 }
 
+
+/* ----------------------------------------------------------------
+                            TYPOGRAPHY
+---------------------------------------------------------------- */
+h1,h2,h3 {
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+h2 {font-size: 32px;}
+
+h2,h3 {padding-bottom: 6px;}
+
+h3 {font-size: 26px;}
+
+p {
+  color: var(--gray);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 26px;
+  letter-spacing: 0.2px;
+}
+
+
 /* ----------------------------------------------------------------
                             POST LIST
 ---------------------------------------------------------------- */
 
 #blog-section {padding-top: 50px;}
 
-.post-thumbnail, .post-details, .author-info, .button {width: 80%;}
-
-.post-thumbnail {
+.post-thumbnail, .post-details, .author-info, .button {
+  width: 80%;
   margin: auto;
   display: block;
 }
 
 .post-details{
-  margin: auto;
   padding: 30px 0;
   text-align: left;
 }
 
-.post-details h1{
-  font-size: 25px;
-  padding-bottom: 20px;
-}
-
-.post-details p{color: var(--gray);}
+.post-details h3 {padding-bottom: 20px;}
 
 .post-details a{
-  color: black;
+  color: purple;
   text-decoration: none;
 }
 
@@ -89,10 +105,9 @@ footer .icons a{
 .post-details h1 a:hover{opacity: 0.8;}
 
  .author-info {
-  display:block;
-  margin: auto;
   padding-top: 20px;
   color: var(--gray);
+  padding-bottom: 20px;
 }
 
 .author-info span {
@@ -107,10 +122,9 @@ footer .icons a{
 } 
 
 .button {
-  margin: auto;
   padding: 20px;
-  display: block;
   border-radius: 8px;
+  /* -webkit-border */
   color: var(--gray);
   text-align: center;
   text-decoration: none;
@@ -128,4 +142,46 @@ footer .icons a{
     gap: 50px;
     justify-content: center;
   }
+}
+
+
+/* ----------------------------------------------------------------
+                            POST DETAIL
+---------------------------------------------------------------- */
+.overlay {
+  background: rgba(0,0,0,0.7 );
+  width: 100%;
+  height: 310px;
+  position: absolute;
+}
+
+.post-detail-content h2 {
+  padding-bottom: 30px;
+}
+.post-detail-content, .post-detail-author-info {
+  width: 80%;
+  margin: auto;
+}
+
+.post-detail-author-info {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 100px;
+}
+
+.author-detail-author-info {
+  flex: 50%;
+  padding: 10px;
+}
+
+.post-detail-author-image {
+  border-radius: 50%;
+}
+
+@media only screen and (min-width: 1024px) {
+  .overlay {height: 700px;}
+}
+
+@media only screen and (min-width: 2560px) {
+  .overlay {height: 1000px;}
 }
