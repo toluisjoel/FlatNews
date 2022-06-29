@@ -1,10 +1,10 @@
-from tkinter import Widget
 from django.contrib.auth.models import User
 from django import forms
 
-class UserRegistrationForm(forms.Form):
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password'}))
-    password2 = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Repeat Password'}))
+
+class UserRegistrationForm(forms.ModelForm):
+    password = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'password'}))
+    password2 = forms.CharField(label='', widget=forms.PasswordInput(attrs={'placeholder': 'Repeat password'}))
 
     class Meta:
         model = User
@@ -15,3 +15,4 @@ class UserRegistrationForm(forms.Form):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passwords Don\'t match')
         return cd['password2']
+
