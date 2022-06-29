@@ -12,6 +12,7 @@
 }
 
 header {padding-bottom: 30px;}
+span{color: black;}
 
 nav ul {
   display: grid;
@@ -99,8 +100,6 @@ p {
   color: purple;
   text-decoration: none;
 }
-
-.post-details h1 a{color: purple;}
 
 .post-details h1 a:hover{opacity: 0.8;}
 

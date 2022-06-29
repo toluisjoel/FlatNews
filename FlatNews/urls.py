@@ -20,7 +20,6 @@ from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap
 from django.conf.urls.static import static
 
-
 sitemaps = {
     'posts': PostSitemap
 }
@@ -28,6 +27,8 @@ sitemaps = {
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls', namespace='blog')),
+    path('', include('django.contrib.auth.urls')),
+    path('account/', include('account.urls', namespace='account')),
     path('sitemap.xml/', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
 ]
 

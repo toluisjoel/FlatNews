@@ -6,6 +6,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class PublishedManager(models.Manager):
     def get_queryset(self):
         return super(PublishedManager, self).get_queryset().filter(status='published')
@@ -14,8 +15,8 @@ class PublishedManager(models.Manager):
 class Post(models.Model):
     tags = TaggableManager()
     status_choices = (('draft', 'draft'), ('published', 'published'),)
-    title = models.CharField(max_length=255)
     thumbnail = models.ImageField(upload_to='media/post_thumbnail/%Y/%M/%d')
+    title = models.CharField(max_length=255)
     content = models.TextField()
     slug = models.SlugField(max_length=225, unique_for_date='published_date')
     author = models.ForeignKey(User, on_delete=models.CASCADE, default='unknown')
@@ -23,7 +24,7 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=status_choices, default='draft')
-    objects = models.Manager() 
+    objects = models.Manager()
     published = PublishedManager()
 
     def get_absolute_url(self):
@@ -37,7 +38,7 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
     email = models.EmailField()
     body = models.TextField()
