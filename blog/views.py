@@ -42,7 +42,8 @@ class PostListView(ListView):
 
 
 def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post, slug=post, status='published', published_date__year=year, published_date__month=month, published_date__day=day)
+    post = get_object_or_404(Post, slug=post, status='published', published_date__year=year,
+                             published_date__month=month, published_date__day=day)
 
     #  comments
     comments = post.comments.filter(active=True)
@@ -63,7 +64,8 @@ def post_detail(request, year, month, day, post):
     similar_posts = Post.published.filter(tags__in=post_tags_ids).exclude(id=post.id)
     similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-published_date')[:4]
 
-    context = {'post': post, 'comments': comments, 'new_comment': new_comment,'comment_form': comment_form, 'similar_posts': similar_posts}
+    context = {'post': post, 'comments': comments, 'new_comment': new_comment, 'comment_form': comment_form,
+               'similar_posts': similar_posts}
     return render(request, 'blog/post/post_detail.html', context)
 
 
@@ -82,7 +84,7 @@ def share_post(request, post_id):
             subject = f"{user['name']} recommends you read  {post.title}"
             message = f"Read the post '{post.title}' at {post_url}\n\n {user['name']}\'s comment {user['comments']}"
             send_mail(subject, message, user['email'], [
-                      user['to']], fail_silently=False)
+                user['to']], fail_silently=False)
             mail_is_sent = True
     else:
         form = EmailPostForm()
